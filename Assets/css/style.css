@@ -1,0 +1,21 @@
+html {
+    background-image: url(../images/train.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    height: 100%;
+}
+
+body {
+    background-color: rgba(255, 255, 255, 0.8); 
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+div {
+    background-color: rgba(255, 255, 255, 0.8); 
+}
+
+.jumbotron {
+    background-color: rgba(255, 255, 255, 0.8); 
+}
