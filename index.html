@@ -20,28 +20,45 @@
             <div class="row mb-4">
                 <div class="col" id="train-schedule">
                     <h3>Train schedule</h3>
-
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Destination</th>
+                                <th scope="col">Something</th>
+                                <th scope="col">Time to next departure</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">first train</th>
+                                <td>tokyo</td>
+                                <td>something</td>
+                                <td>@something</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <div class="row-mb-4">
                 <div class="col" id="add-train-here">
                     <h3>Add new train</h3>
                     <form>
-                        <label for="">Train name</label>
-                        <input type="text" class="form-control mr-2 mb-2" placeholder="Name" id="input">
-                        <label for="">Destination</label>
-                        <input type="text" class="form-control mr-2 mb-2" placeholder="Destination" id="input">
-                        <label for="">First train time</label>
-                        <input type="time" class="form-control mr-2 mb-2" placeholder="First train time" id="input">
-                        <label for="">Frequency (min)</label>
-                        <input type="time" class="form-control mr-2 mb-2" placeholder="Frequency (min)" id="input">
+                        <label for="train-name">Train name</label>
+                        <input type="text" class="form-control mr-2 mb-2" placeholder="Name" id="train-name">
+                        <label for="destination">Destination</label>
+                        <input type="text" class="form-control mr-2 mb-2" placeholder="Destination" id="destination">
+                        <label for="first-train-time">First train time (24hr)</label>
+                        <input type="time" class="form-control mr-2 mb-2" placeholder="First train time" id="first-train-time">
+                        <label for="frequency">Frequency (min)</label>
+                        <input type="number" class="form-control mr-2 mb-2" placeholder="Frequency" id="frequency">
                         <button type="submit" class="btn btn-primary mr-2 mb-2" id="submit">Submit</button>
                     </form>
                 </div>
             </div>
             <div class="row-mb-4">
-                <div class="col">
-                    stuff
+                <div class="col" id="footer">
+                    <br><br>
                 </div>
             </div>
         </div>
