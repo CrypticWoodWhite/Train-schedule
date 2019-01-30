@@ -29,6 +29,7 @@ $("#submit").on("click", function(event) {
         destination: "",
         firstTrain: "",
         frequency: 0,
+        timestamp: "",
     };
 
     // push input values into object
@@ -36,6 +37,7 @@ $("#submit").on("click", function(event) {
     newTrain.destination = $("#destination").val().trim();
     newTrain.firstTrain = $("#first-train-time").val();
     newTrain.frequency = $("#frequency").val();
+    newTrain.timestamp = firebase.database.ServerValue.TIMESTAMP;
 
     console.log(newTrain);
     // push object into database
@@ -59,17 +61,8 @@ trainDatabase.ref().on("child_added", function(childSnapshot) {
     var minAway = tFreq - tRemainder;
     var nextArrival = moment().add(minAway, "minutes").format("HH:mm");
 
-    // update minAway and nextArrival
-    var updateTrainSchedule = function() {
-        var now = moment();
-        minAway = tFreq - tRemainder;
-        nextArrival = now.add(minAway, "minutes").format("HH:mm");
-    }
-    setInterval(updateTrainSchedule, 60000);
-
     // get the firebase key for the new train
     var key = childSnapshot.key;
-    console.log("Key: " + key);
 
     // add everything to the table
     $("#table-body").prepend("<tr><th scope='row'>" + childSnapshot.val().name + "</th><td>" + childSnapshot.val().destination + "</td><td>" + childSnapshot.val().frequency + "</td><td>" + nextArrival + "</td><td>" + minAway + "</td><td>" + "<button class='btn btn-light btn-sm remove' id=" + key + ">X</button>" + "</td></tr>");
@@ -86,5 +79,17 @@ $("#table-body").on("click", ".remove", function() {
 });
 function removeData(key) {
     trainDatabase.ref(key).remove();
-    console.log("successfully removed");
 }
+
+
+
+
+
+//Attemps at real time updates
+const serverTime = firebase.database.ServerValue.TIMESTAMP;
+var realtimeUpdates = function (snapshot) {
+    trainDatabase.ref().on("value", function() {
+
+    });
+}
+setInterval(realtimeUpdates, 60000);
