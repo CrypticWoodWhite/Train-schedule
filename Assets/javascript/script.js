@@ -81,10 +81,6 @@ function removeData(key) {
     trainDatabase.ref(key).remove();
 }
 
-
-
-
-
 //Attemps at real time updates
 const serverTime = firebase.database.ServerValue.TIMESTAMP;
 var realtimeUpdates = function (snapshot) {
