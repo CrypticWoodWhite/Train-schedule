@@ -59,16 +59,24 @@ trainDatabase.ref().on("child_added", function(childSnapshot) {
     var minAway = tFreq - tRemainder;
     var nextArrival = moment().add(minAway, "minutes").format("HH:mm");
 
+    // get the firebase key for the new train
+    var key = childSnapshot.key;
+    console.log("Key: " + key);
+
     // add everything to the table
-    $("#table-body").prepend("<tr><th scope='row'>" + childSnapshot.val().name + "</th><td>" + childSnapshot.val().destination + "</td><td>" + childSnapshot.val().frequency + "</td><td>" + nextArrival + "</td><td>" + minAway + "</td><td>" + "<button class='btn btn-light btn-sm remove'>X</button>" + "</td></tr>");
+    $("#table-body").prepend("<tr><th scope='row'>" + childSnapshot.val().name + "</th><td>" + childSnapshot.val().destination + "</td><td>" + childSnapshot.val().frequency + "</td><td>" + nextArrival + "</td><td>" + minAway + "</td><td>" + "<button class='btn btn-light btn-sm remove' id=" + key + ">X</button>" + "</td></tr>");
 
     // Handle the errors
     }, function(errorObject) {
         console.log("Errors handled: " + errorObject.code);
 });
 
-// remove button deletes row when clicked
+// remove button deletes row AND corresponding data in firebase when clicked
 $("#table-body").on("click", ".remove", function() {
     $(this).closest("tr").remove();
+    removeData($(this).attr("id"));
 });
-// ok so now how to delete data from firebase?
+function removeData(key) {
+    trainDatabase.ref(key).remove();
+    console.log("successfully removed");
+}
