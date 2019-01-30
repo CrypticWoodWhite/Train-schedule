@@ -8,14 +8,11 @@ html {
 body {
     background-color: rgba(255, 255, 255, 0.8); 
     width: 80%;
-    height: 100%;
+    height: auto;
     margin: 0 auto;
 }
 
-div {
-    background-color: rgba(255, 255, 255, 0.8); 
-}
-
-.jumbotron {
-    background-color: rgba(255, 255, 255, 0.8); 
+div.jumbotron {
+    background-color: rgba(255, 255, 255, 0.5); 
+    padding: 2em;
 }
