@@ -11,12 +11,13 @@ firebase.initializeApp(config);
 var trainDatabase = firebase.database();
 
 // show current time
-function time() {
+var updateTime = function() {
     now = moment().format("HH:mm");
     time = $("<p class='text-center'>").html("<strong>Current time: " + now + "</strong>");
-    $("#clock").append(time);
+    $("#clock").html(time);
 }
-time();
+updateTime();
+setInterval(updateTime, 60000);
 
 // add input values to database when click submit
 $("#submit").on("click", function(event) {
@@ -56,12 +57,18 @@ trainDatabase.ref().on("child_added", function(childSnapshot) {
     var tDiff = moment().diff(moment(tFirstConverted), "minutes");
     var tRemainder = tDiff % tFreq;
     var minAway = tFreq - tRemainder;
-    var nextArrival = moment().add(minAway, "minutes");
+    var nextArrival = moment().add(minAway, "minutes").format("HH:mm");
 
     // add everything to the table
-    $("#table-body").prepend("<tr><th scope='row'>" + childSnapshot.val().name + "</th><td>" + childSnapshot.val().destination + "</td><td>" + childSnapshot.val().frequency + "</td><td>" + nextArrival.format("HH:mm") + "</td><td>" + minAway + "</td></tr>");
+    $("#table-body").prepend("<tr><th scope='row'>" + childSnapshot.val().name + "</th><td>" + childSnapshot.val().destination + "</td><td>" + childSnapshot.val().frequency + "</td><td>" + nextArrival + "</td><td>" + minAway + "</td><td>" + "<button class='btn btn-light btn-sm remove'>X</button>" + "</td></tr>");
 
     // Handle the errors
     }, function(errorObject) {
         console.log("Errors handled: " + errorObject.code);
-  });
+});
+
+// remove button deletes row when clicked
+$("#table-body").on("click", ".remove", function() {
+    $(this).closest("tr").remove();
+});
+// ok so now how to delete data from firebase?
